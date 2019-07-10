@@ -1,0 +1,10 @@
+---
+# tasks file for /etc/ansible/roles/databasecreate
+- name: check if DB exists
+  shell: mysql --user=root --password=Saji@1234 -e 'SHOW DATABASES;' | grep -c myproject
+  register: dbstatus
+  failed_when: dbstatus.rc == 2
+
+- name: Create database
+  shell: mysql -uroot -pSaji@1234 --connect-expired-password -e 'CREATE DATABASE myproject; flush privileges;'
+  when: dbstatus.stdout == "0"

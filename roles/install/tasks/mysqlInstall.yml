@@ -1,0 +1,24 @@
+---
+  - name: Install MySQL
+    yum: 
+        name=mysql
+        state=latest
+
+  - name: Install MySQL 5.7
+    yum: pkg={{ item }}
+    with_items:
+    - mysql-community-server
+    - mysql-community-client
+    - MySQL-python
+
+  - name: Start the MySQL service
+    service: name=mysqld state=started enabled=true
+
+  - name: Change mysql root password and keep track in 
+    shell: |
+      password_match=`awk '/A temporary password is generated for/ {a=$0} END{ print a }' /var/log/mysqld.log | awk '{print $(NF)}'`
+      echo $password_match
+      mysql -uroot -p$password_match --connect-expired-password -e "ALTER USER 'root'@'localhost' IDENTIFIED BY 'Saji@1234'; flush privileges; "
+      echo "[client]"
+      user=root
+      password='Saji@1234' > /root/.my.cnf

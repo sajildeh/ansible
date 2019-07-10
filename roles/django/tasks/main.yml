@@ -1,0 +1,19 @@
+---
+# tasks file for /etc/ansible/roles/django
+- name: part1
+  command: echo $(hostname -I)
+  register: IPADDRESS
+  
+- name: part2
+  shell: echo {{IPADDRESS.stdout}}
+  register: IPADDRESStemp
+
+- name: Ansible replace string 
+  replace:
+   path: "/root/PerformanceMetric/api/settings.py"
+   regexp: 'HOSTIPADDRESS'
+   replace: "{{IPADDRESStemp.stdout}}"
+
+- name: start Django
+  shell: cd "/root/PerformanceMetric/" && source venv/bin/activate && pip install Django==2.0.3 && pip install djangorestframework &&(( nohup python manage.py runserver IPADDRESStemp.stdout:8000 1>/dev/null 2>&1 ) & )
+  

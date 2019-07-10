@@ -1,0 +1,13 @@
+---
+# tasks file for /etc/ansible/roles/testlogrotate
+- name: Rotate apt
+  logrotate:
+    name: saji.log
+    files:
+      - /var/log/audit/saji.log
+    rotate: 12
+    frequency: monthly
+    compress: yes
+    missingok: yes
+    notifempty: yes
+    state: present

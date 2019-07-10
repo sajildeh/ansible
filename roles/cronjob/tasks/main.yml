@@ -1,0 +1,49 @@
+---
+# tasks file for /etc/ansible/roles/cronjob
+- name: CPU cronjob
+  cron:
+    name: "check CPU"
+    minute: "*/2"
+    job: "/root/task3.sh"
+
+- name: Memory cronjob
+  cron:
+    name: "check Memory"
+    minute: "*/2"
+    job: "/root/task1.sh"
+
+- name: Disk cronjob
+  cron:
+    name: "check Disk"
+    minute: "*/2"
+    job: "/root/task.sh"
+
+- name: CPUAvg cronjob
+  cron:
+    name: "check CPUAvg"
+    minute: "*/6"
+    job: "/root/taskAvg.sh"
+
+- name: MemoryAvg cronjob
+  cron:
+    name: "check MemoryAvg"
+    minute: "*/6"
+    job: "/root/mavg.sh"
+
+- name: DiskAvg cronjob
+  cron:
+    name: "check DiskAvg"
+    minute: "*/6"
+    job: "/root/davg.sh"
+
+- name: clear Memory
+  cron:
+    name: "clear Memory"
+    day: "*/1"
+    job: find /root/task2/Memory* -mtime +5 -exec rm {} \;
+
+- name: clear Disk
+  cron:
+    name: "clear Disk"
+    day: "*/1"
+    job: find /root/task2/Disk* -mtime +5 -exec rm {} \;

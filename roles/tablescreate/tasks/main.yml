@@ -1,0 +1,55 @@
+---
+# tasks file for /etc/ansible/roles/tablescreate
+- name: check if table CPU exists
+  shell: mysql --user=root --password=Saji@1234 myproject -e 'SHOW TABLES;' | grep -c CPUTable
+  register: dbstatus
+  failed_when: dbstatus.rc == 2
+
+- name: Create table CPU
+  shell: mysql -uroot -pSaji@1234 myproject --connect-expired-password -e 'create Table CPUTable(id int(10) unsigned NOT NULL PRIMARY KEY AUTO_INCREMENT, date varchar(100), cpuColumn Float);'
+  when: dbstatus.stdout == "0"
+
+- name: check if table Disk exists
+  shell: mysql --user=root --password=Saji@1234 myproject -e 'SHOW TABLES;' | grep -c DiskTable
+  register: dbstatus
+  failed_when: dbstatus.rc == 2
+
+- name: Create table Disk
+  shell: mysql -uroot -pSaji@1234 myproject --connect-expired-password -e 'create Table DiskTable(id int(10) unsigned NOT NULL PRIMARY KEY AUTO_INCREMENT, date varchar(100), DiskAvailable Float, DiskUsed Float);'
+  when: dbstatus.stdout == "0"
+
+- name: check if table Memory exists
+  shell: mysql --user=root --password=Saji@1234 myproject -e 'SHOW TABLES;' | grep -c MemoryTable
+  register: dbstatus
+  failed_when: dbstatus.rc == 2
+
+- name: Create table Memory
+  shell: mysql -uroot -pSaji@1234 myproject --connect-expired-password -e 'create Table MemoryTable(id int(10) unsigned NOT NULL PRIMARY KEY AUTO_INCREMENT, date varchar(100), MemoryAvailable Float, MemoryUsed Float);'
+  when: dbstatus.stdout == "0"
+
+- name: check if table CPUAvg exists
+  shell: mysql --user=root --password=Saji@1234 myproject -e 'SHOW TABLES;' | grep -c CPUAvg
+  register: dbstatus
+  failed_when: dbstatus.rc == 2
+
+- name: Create table CPUAvg
+  shell: mysql -uroot -pSaji@1234 myproject --connect-expired-password -e 'create Table CPUAvg (id int(10) unsigned NOT NULL PRIMARY KEY AUTO_INCREMENT, date varchar(100), cpuAvgColumn Float);'
+  when: dbstatus.stdout == "0"
+
+- name: check if table MemoryAvg exists
+  shell: mysql --user=root --password=Saji@1234 myproject -e 'SHOW TABLES;' | grep -c MemoryAvg
+  register: dbstatus
+  failed_when: dbstatus.rc == 2
+
+- name: Create table MemoryAvg 
+  shell: mysql -uroot -pSaji@1234 myproject --connect-expired-password -e 'create Table MemoryAvg (id int(10) unsigned NOT NULL PRIMARY KEY AUTO_INCREMENT, date varchar(100), AvgMemoryAvailable Float, AvgMemoryFree Float);'
+  when: dbstatus.stdout == "0"
+
+- name: check if table DiskAvg exists
+  shell: mysql --user=root --password=Saji@1234 myproject -e 'SHOW TABLES;' | grep -c DiskAvg
+  register: dbstatus
+  failed_when: dbstatus.rc == 2
+
+- name: Create table DiskAvg
+  shell: mysql -uroot -pSaji@1234 myproject --connect-expired-password -e 'create Table DiskAvg(id int(10) unsigned NOT NULL PRIMARY KEY AUTO_INCREMENT, date varchar(100), AvgDiskAvailable Float, AvgDiskFree Float);'
+  when: dbstatus.stdout == "0"

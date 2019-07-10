@@ -1,0 +1,28 @@
+---
+# tasks file for /etc/ansible/roles/createrepo
+- name: install createrepo
+  yum: 
+    name: createrepo
+    state: present
+
+- name: install bc
+  yum: 
+    name: bc
+    state: present
+
+- name: disable repos
+  shell: yum-config-manager --disable \*
+
+- name: create repo
+  shell: createrepo "/root/rpm/"
+
+- name: Add repository
+  yum_repository:
+     name: sajildeh
+     description: saji repo
+     baseurl: "file:///root/rpm/"
+     enabled: yes
+     gpgcheck: no
+
+- name: enable myrepo
+  shell: yum-config-manager --enable sajildeh

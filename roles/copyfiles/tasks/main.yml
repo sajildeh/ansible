@@ -1,0 +1,43 @@
+---
+# tasks file for /etc/ansible/roles/copyfiles
+- name: copy django project
+  copy:
+    src: "/root/PerformanceMetric/"
+    dest: "/root/PerformanceMetric/"
+    mode: 0777
+
+- name: copy task1
+  copy:
+    src: "/root/taskAvg.sh"
+    dest: "/root/taskAvg.sh"
+    mode: 0777
+
+- name: copy task2
+  copy:
+    src: "/root/task3.sh"
+    dest: "/root/task3.sh"
+    mode: 0777
+
+- name: copy task3
+  copy:
+    src: "/root/task1.sh"
+    dest: "/root/task1.sh"
+    mode: 0777
+
+- name: copy task4
+  copy:
+    src: "/root/task.sh"
+    dest: "/root/task.sh"
+    mode: 0777
+
+- name: copy task5
+  copy:
+    src: "/root/mavg.sh"
+    dest: "/root/mavg.sh"
+    mode: 0777
+
+- name: copy task6
+  copy:
+    src: "/root/davg.sh"
+    dest: "/root/davg.sh"
+    mode: 0777
